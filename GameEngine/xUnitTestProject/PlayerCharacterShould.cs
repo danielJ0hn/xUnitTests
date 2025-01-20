@@ -139,5 +139,24 @@ namespace xUnitTestProject.Tests
             Assert.Equal(expectedWeapons, sut.Weapons);
 
         }
+
+        // Test Events
+        [Fact]
+        public void raiseSleptEvent()
+        {
+            PlayerCharacter sut = new PlayerCharacter();
+            Assert.Raises<EventArgs>(
+                handler => sut.PlayerSlept += handler,
+                handler => sut.PlayerSlept -= handler,
+                () => sut.Sleep());
+        }
+
+        // Tos notify property changed event when a class is using INotifyPropertyChanged event
+        [Fact]
+        public void RaisesPropertyChangedEvent()
+        {
+            PlayerCharacter sut = new PlayerCharacter();
+            Assert.PropertyChanged(sut, "Health", () => sut.TakeDamage(10));
+        }
     }
 }
